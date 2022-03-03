@@ -1,6 +1,6 @@
 <%@ page import="com.crudjavawebnube.dao.UsuarioDao"%>
 <jsp:useBean id="u" class="com.crudjavawebnube.bean.Usuario"></jsp:useBean>
-<jsp:setProperty property="*" name="u"/>
+<jsp:setProperty property="*" name="u" />
 
 <%
 	int i = UsuarioDao.updateUsuario(u);

@@ -1,11 +1,11 @@
 package com.crudjavawebnube.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import com.crudjavawebnube.bean.Usuario;
-import com.mysql.jdbc.PreparedStatement;
 
 public class UsuarioDao {
 
@@ -13,7 +13,7 @@ public class UsuarioDao {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			 con = DriverManager.getConnection("jbdc:mysql://localhost:3306/test", "root" , "" );
+			 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root" , "" );
 			} catch(Exception e) {
 				 System.out.println(e);
 			}
@@ -22,12 +22,11 @@ public class UsuarioDao {
 	
 	public static int salvarUsuario(Usuario u) {
 		int status = 0;
+		
 		try {
 			Connection con = getConnection();
 			PreparedStatement ps = (PreparedStatement) 
-					con.prepareStatement
-					("INSERT INTO "
-	+ "usuario(nome,senha,email,genero,nacionalidade) VALUES(?,?,?,?,?)");
+					con.prepareStatement("INSERT INTO usuario (nome,senha,email,genero,nacionalidade) VALUES (?,?,?,?,?)");
 			ps.setString(1, u.getNome());
 			ps.setString(2, u.getSenha());
 			ps.setString(3, u.getEmail());
@@ -89,6 +88,7 @@ public static Usuario getRegistroById(int id) {
 				con.prepareStatement("SELECT * FROM usuario WHERE id=?");
 		ps.setInt(1, id);
 		ResultSet rs = ps.executeQuery();
+		
 		while(rs.next()) {
 			usuario = new Usuario();
 			usuario.setId(rs.getInt("id"));

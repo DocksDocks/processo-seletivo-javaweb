@@ -9,18 +9,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <h1>Listagem de Usuários</h1>
 <%
-String pageid = request.getParameter("page");
-int id = Integer.parseInt(pageid);
-int total = 5;
-	if(id==1){}
-	else{
-	id = id-1;
-	id = id*total+1;
-}
-//List<Usuario> list = UsuarioDao.getTodosUsuarios();
-List<Usuario> list = UsuarioDao.getRecords(id,total);
+List<Usuario> list = UsuarioDao.getTodosUsuarios();
 request.setAttribute("list", list);
-
 %>
 <table border="1">
  <tr> 
@@ -40,16 +30,12 @@ request.setAttribute("list", list);
  <td> ${usuario.getSenha() } </td>
  <td> ${usuario.getEmail() } </td>
  <td> ${usuario.getGenero() } </td>
- <td> <a href="editform.jsp?id=${usuario.getId()}"> Editar </a> </td>
- <td> <a href="deleteusuario.jsp?id=${usuario.getId()}"> Excluir </a> </td>
+ <td> ${usuario.getNacionalidade() } </td>
+ <td><a href="editform.jsp?id=${usuario.getId()}">Editar</a></td>
+ <td><a href="deleteusuario.jsp?id=${usuario.getId()}">Excluir</a></td>
  </tr>
  </c:forEach>
 </table>
-<br>
-<a href="viewusuarios.jsp?page=1">1</a>
-<a href="viewusuarios.jsp?page=2">2</a>
-<a href="viewusuarios.jsp?page=3">3</a>
-<a href="viewusuarios.jsp?page=4">4</a>
 <br>
  <a href="addusuarioform.jsp">Adicionar novo usuário </a>
  
